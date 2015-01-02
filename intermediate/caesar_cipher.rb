@@ -21,15 +21,15 @@ def caesar_decipher(ciphered,words_to_search_for=false)
 
   coded_words_chars = ciphered.upcase().split("")
   all_messages = []
-  message = []
   alphaposition = 0
   while alphaposition <= 26
+    message = []
     alphaposition += 1
     coded_words_chars.each do |char|
-      if $ordered_alphabet[char] == nil
+      if $alpha_nums[char] == nil
         message.push(char)
       else
-        message.push($ordered_alphabet[($alpha_nums[char] + alphaposition) % 26])
+        message.push($ordered_alphabet[ ($alpha_nums[char] + alphaposition) % 26 ] )
       end
     end
     message = message.join("")
@@ -41,13 +41,10 @@ def caesar_decipher(ciphered,words_to_search_for=false)
         answer = gets.chomp
         if answer == 'y' || answer == 'Y'
           return message.join(" ")
-        else
-          puts message.join(" ")
         end
       end
     end
     all_messages.push(message)
-    message = []
   end
   puts all_messages
 end
@@ -108,5 +105,5 @@ $alpha_nums =  {
     23 =>"W",
     24 =>"X",
     25 =>"Y",
-    26 =>"Z",
-  }
+    0 =>"Z",
+  } # '0 => Z' because of the "modulo 26" operation.
