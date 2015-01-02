@@ -9,11 +9,19 @@ ciphered = "ugfyjslmdslagfk gf kgdnafy lzak hjgtdwe lzw sfkowj ak log zmfvjwv sf
 
 # => Encrypted on 'h'; message is  'CONGRATULATIONS ON SOLVING THIS PROBLEM THE ANSWER IS TWO HUNDRED AND TWENTY TWO'
 
-def caesar_decipher(ciphered)
+def caesar_decipher(ciphered,words_to_search_for=false)
+  most_common_english_words = ["THE","BE","TO","OF","AND","A","IN","THAT","HAVE","I","IT","FOR","WITH","AS","IS"]
+
+  if words_to_search_for
+    if words_to_search_for.class == String
+      words_to_search_for = words_to_search_for.split(/\s/)
+    end
+    words_to_search_for.each { |word| most_common_english_words.push(word.upcase) }
+  end
+
   coded_words_chars = ciphered.upcase().split("")
   all_messages = []
   message = []
-  most_common_english_words = ["THE","BE","TO","OF","AND","A","IN","THAT","HAVE","I","IT","FOR","WITH","AS","IS"]
   alphaposition = 0
   while alphaposition <= 26
     alphaposition += 1
@@ -25,7 +33,7 @@ def caesar_decipher(ciphered)
       end
     end
     message = message.join("")
-    message = message.split(" ")
+    message = message.split(/[^A-Z]/) # splits message by each char that is 'not an uppercase letter'
     most_common_english_words.each do |word|
       if message.include?(word)
         puts message.join(" ")
