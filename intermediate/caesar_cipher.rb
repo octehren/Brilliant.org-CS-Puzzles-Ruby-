@@ -13,6 +13,7 @@
 def caesar_decipher(ciphered,words_to_search_for=false)
   most_common_english_words = ["THE","BE","TO","OF","AND","A","IN","THAT","HAVE","I","IT","FOR","WITH","AS","IS"]
 
+  #checks for optional argument and adds it to words of interest.
   if words_to_search_for
     if words_to_search_for.class == Array
       words_to_search_for.each { |word| word = word.upcase }
@@ -23,10 +24,14 @@ def caesar_decipher(ciphered,words_to_search_for=false)
     end
   end
 
+  # variables that need to be declared outside the function's main loop.
   ciphered = ciphered.upcase
   coded_words_chars = ciphered.split("")
   all_messages = []
   alphaposition = 0
+
+  #main loop; iterates over alphabet and shifts each character of the input cipher.
+  #(line 47 to 56) Asks user to confirm a possible match. Outputs all shifts if no confirmation is received.
   while alphaposition <= 26
     message = []
     alphaposition += 1
@@ -52,12 +57,14 @@ def caesar_decipher(ciphered,words_to_search_for=false)
     end
     all_messages.push(message.join(" "))
   end
+
+  #output in case of failure of match recognition by the user.
   puts all_messages
 end
 
 
 
-$alpha_nums =  {
+$alpha_nums =  { # 'Z => 0' because of the "modulo 26" operation.
   "A"=>1,
   "B"=>2,
   "C"=>3,
@@ -84,32 +91,3 @@ $alpha_nums =  {
   "X"=>24,
   "Y"=>25,
   "Z"=>0}
-
-  $ordered_alphabet ={
-    1 =>"A",
-    2 =>"B",
-    3 =>"C",
-    4 =>"D",
-    5 => "E",
-    6 =>"F",
-    7 =>"G",
-    8 =>"H",
-    9 =>"I",
-    10 =>"J",
-    11 =>"K",
-    12 =>"L",
-    13 =>"M",
-    14 =>"N",
-    15 =>"O",
-    16 =>"P",
-    17 =>"Q",
-    18 =>"R",
-    19 =>"S",
-    20 =>"T",
-    21 =>"U",
-    22 =>"V",
-    23 =>"W",
-    24 =>"X",
-    25 =>"Y",
-    0 =>"Z",
-  } # '0 => Z' because of the "modulo 26" operation.
