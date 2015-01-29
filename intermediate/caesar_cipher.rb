@@ -12,7 +12,7 @@
 # => GIST GITHUB COM ANONYMOUS 8207770
 class CaeCipher
 
-  @alpha_nums =  { # 'Z => 0' because of the "modulo 26" operation.
+  @@alpha_nums =  { # 'Z => 0' because of the "modulo 26" operation.
     "A"=>1,
     "B"=>2,
     "C"=>3,
@@ -43,7 +43,7 @@ class CaeCipher
 
   def self.encipher(message,key=3) #officially, Caesar cipher shifts 3 positions. the n position shift cipher is the "shift cipher".
     if key.class == String
-      key = @alpha_nums[key]
+      key = @@alpha_nums[key]
     elsif key.class != Fixnum
       raise "Key argument must be either a string or integer."
     end
@@ -51,10 +51,10 @@ class CaeCipher
     cipher = []
     message = message.upcase.split("")
     message.each do |char|
-      if @alpha_nums[char] == nil
+      if @@alpha_nums[char] == nil
         cipher.push(char)
       else
-        cipher.push(@alpha_nums.find { |k,val| @alpha_nums[k] == ((@alpha_nums[char] + key) % 26) }[0])
+        cipher.push(@@alpha_nums.find { |k,val| @@alpha_nums[k] == ((@@alpha_nums[char] + key) % 26) }[0])
       end
     end
     return cipher.join("")
@@ -86,10 +86,10 @@ class CaeCipher
       message = []
       alphaposition += 1
       coded_words_chars.each do |char|
-        if @alpha_nums[char] == nil
+        if @@alpha_nums[char] == nil
           message.push(char)
         else
-          message.push(@alpha_nums.find { |key,val| @alpha_nums[key] == (@alpha_nums[char] + alphaposition) % 26 }[0])
+          message.push(@@alpha_nums.find { |key,val| @@alpha_nums[key] == (@@alpha_nums[char] + alphaposition) % 26 }[0])
         end
       end
       message = message.join("").split(/[^A-Z0-9]/) # the RegEx splits 'message' by each char that fits 'not an uppercase letter neither a digit'
@@ -99,7 +99,7 @@ class CaeCipher
           puts "Does this make any sense? (y/n)"
           answer = gets.chomp
           if answer == 'y' || answer == 'Y'
-            shifts = @alpha_nums[ ciphered[0] ] - @alpha_nums[ message[0] ]
+            shifts = @@alpha_nums[ ciphered[0] ] - @@alpha_nums[ message[0] ]
             shifts *= -1 if shifts < 0
             puts "Encrypted with #{ shifts } shifts"
             return message.join(" ")
