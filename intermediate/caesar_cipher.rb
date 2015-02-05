@@ -10,7 +10,7 @@
 # => Encrypted on 'h'; message is  'CONGRATULATIONS ON SOLVING THIS PROBLEM THE ANSWER IS TWO HUNDRED AND TWENTY TWO'
 
 # => GIST GITHUB COM ANONYMOUS 8207770
-class CaeCipher
+class CaeCipher()
 
   @@alpha_nums =  { # 'Z => 0' because of the "modulo 26" operation.
     "A"=>1,
